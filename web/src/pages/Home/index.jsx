@@ -398,51 +398,6 @@ const Home = () => {
             </div>
           </section>
 
-          {/* ======================== Why Choose Galapi (5 features) ======================== */}
-          <section className='w-full py-16 md:py-20 border-t border-semi-color-border'>
-            <div className='max-w-6xl mx-auto px-6'>
-              <div className='text-center mb-12'>
-                <Tag color='blue' size='large' className='mb-4'>
-                  为什么选择 Galapi
-                </Tag>
-                <h2 className='text-3xl md:text-4xl font-bold mb-3'>
-                  为什么开发者和创作者都选择 Galapi
-                </h2>
-                <p className='text-semi-color-text-1 text-lg'>
-                  五大核心竞争力，让你的 AI 工作流更稳、更快、更省
-                </p>
-              </div>
-
-              <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5'>
-                {CORE_FEATURES.map((feat, idx) => (
-                  <div
-                    key={idx}
-                    className='flex flex-col p-6 rounded-2xl border border-semi-color-border transition-all hover:shadow-md hover:border-semi-color-primary'
-                    style={{ backgroundColor: 'var(--semi-color-bg-0)' }}
-                  >
-                    <div
-                      className='w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4'
-                      style={{
-                        backgroundColor: `${feat.color}20`,
-                      }}
-                    >
-                      {feat.icon}
-                    </div>
-                    <Title heading={5} className='!mb-3'>
-                      {feat.title}
-                    </Title>
-                    <Text
-                      type='tertiary'
-                      className='text-sm leading-relaxed'
-                    >
-                      {feat.desc}
-                    </Text>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
           {/* ======================== Text API Subscriptions ======================== */}
           <section className='w-full py-16 md:py-24 border-t border-semi-color-border'>
             <div className='max-w-6xl mx-auto px-6'>
@@ -707,6 +662,51 @@ const Home = () => {
                 </table>
               </div>
 
+            </div>
+          </section>
+
+          {/* ======================== Why Choose Galapi (5 features) ======================== */}
+          <section className='w-full py-16 md:py-20 border-t border-semi-color-border'>
+            <div className='max-w-6xl mx-auto px-6'>
+              <div className='text-center mb-12'>
+                <Tag color='blue' size='large' className='mb-4'>
+                  为什么选择 Galapi
+                </Tag>
+                <h2 className='text-3xl md:text-4xl font-bold mb-3'>
+                  为什么开发者和创作者都选择 Galapi
+                </h2>
+                <p className='text-semi-color-text-1 text-lg'>
+                  五大核心竞争力，让你的 AI 工作流更稳、更快、更省
+                </p>
+              </div>
+
+              <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5'>
+                {CORE_FEATURES.map((feat, idx) => (
+                  <div
+                    key={idx}
+                    className='flex flex-col p-6 rounded-2xl border border-semi-color-border transition-all hover:shadow-md hover:border-semi-color-primary'
+                    style={{ backgroundColor: 'var(--semi-color-bg-0)' }}
+                  >
+                    <div
+                      className='w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4'
+                      style={{
+                        backgroundColor: `${feat.color}20`,
+                      }}
+                    >
+                      {feat.icon}
+                    </div>
+                    <Title heading={5} className='!mb-3'>
+                      {feat.title}
+                    </Title>
+                    <Text
+                      type='tertiary'
+                      className='text-sm leading-relaxed'
+                    >
+                      {feat.desc}
+                    </Text>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
