@@ -139,34 +139,6 @@ const SUBSCRIPTION_MODEL_COMPARISON = [
   },
 ];
 
-// 直连国内 API 的模型 (按官方价)
-const DIRECT_MODEL_COMPARISON = [
-  {
-    model: 'DeepSeek V3',
-    official: '$0.28 / 1M',
-    galapi: '$0.28 / 1M',
-    save: '官方价',
-  },
-  {
-    model: 'Qwen3-Max',
-    official: '¥2.4 / 1M',
-    galapi: '¥2.4 / 1M',
-    save: '官方价',
-  },
-  {
-    model: 'MiniMax M2.7',
-    official: '¥2.1 / 1M',
-    galapi: '¥2.1 / 1M',
-    save: '官方价',
-  },
-  {
-    model: 'GLM-4',
-    official: '¥0.5 / 1M',
-    galapi: '¥0.5 / 1M',
-    save: '官方价',
-  },
-];
-
 // 5 核心竞争力
 const CORE_FEATURES = [
   {
@@ -317,12 +289,12 @@ const Home = () => {
       {homePageContentLoaded && homePageContent === '' ? (
         <div className='w-full overflow-x-hidden'>
           {/* ======================== Hero Section (compact) ======================== */}
-          <section className='w-full relative overflow-hidden py-10 md:py-14 lg:py-16 mt-4'>
+          <section className='w-full relative overflow-hidden py-12 md:py-16 lg:py-20 mt-12 md:mt-16'>
             <div className='blur-ball blur-ball-indigo' />
             <div className='blur-ball blur-ball-teal' />
 
             <div className='max-w-5xl mx-auto px-6 text-center relative z-10'>
-              <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight'>
+              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight'>
                 Galapi{' '}
                 <span className='shine-text'>AI 聚合网关</span>
               </h1>
@@ -566,53 +538,6 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* 直连国内 API 模型 */}
-              <div className='mt-12'>
-                <div className='text-center mb-8'>
-                  <Title heading={3}>直连模型 · 官方价</Title>
-                  <Text type='tertiary'>
-                    DeepSeek / Qwen / MiniMax 等，直连官方 API，合规稳定
-                  </Text>
-                </div>
-
-                <div className='max-w-3xl mx-auto overflow-x-auto rounded-xl border border-semi-color-border'>
-                  <table className='w-full'>
-                    <thead>
-                      <tr
-                        style={{
-                          backgroundColor: 'var(--semi-color-fill-0)',
-                        }}
-                      >
-                        <th className='text-left p-4 font-semibold'>模型</th>
-                        <th className='text-right p-4 font-semibold'>官方价</th>
-                        <th className='text-right p-4 font-semibold'>Galapi 价</th>
-                        <th className='text-right p-4 font-semibold'>说明</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {DIRECT_MODEL_COMPARISON.map((row, idx) => (
-                        <tr
-                          key={idx}
-                          className='border-t border-semi-color-border'
-                        >
-                          <td className='p-4 font-medium'>{row.model}</td>
-                          <td className='p-4 text-right text-semi-color-text-2'>
-                            {row.official}
-                          </td>
-                          <td className='p-4 text-right font-semibold'>
-                            {row.galapi}
-                          </td>
-                          <td className='p-4 text-right'>
-                            <Tag color='blue' size='small'>
-                              {row.save}
-                            </Tag>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
             </div>
           </section>
 
