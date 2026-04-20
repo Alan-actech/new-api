@@ -707,24 +707,6 @@ const Home = () => {
                 </table>
               </div>
 
-              {/* 视频卖点 */}
-              <div className='grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto'>
-                <div className='text-center p-6'>
-                  <div className='text-3xl mb-3'>⚡</div>
-                  <Title heading={5}>官方直连</Title>
-                  <Text type='tertiary'>不经过中转，无订阅池</Text>
-                </div>
-                <div className='text-center p-6'>
-                  <div className='text-3xl mb-3'>🎨</div>
-                  <Title heading={5}>全参数支持</Title>
-                  <Text type='tertiary'>分辨率/时长/宽高比任选</Text>
-                </div>
-                <div className='text-center p-6'>
-                  <div className='text-3xl mb-3'>💨</div>
-                  <Title heading={5}>秒级提交</Title>
-                  <Text type='tertiary'>任务响应与官方一致</Text>
-                </div>
-              </div>
             </div>
           </section>
 
