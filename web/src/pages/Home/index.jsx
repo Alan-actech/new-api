@@ -30,6 +30,11 @@ import {
   IconCopy,
   IconCheckCircleStroked,
   IconTickCircle,
+  IconShield,
+  IconSend,
+  IconCoinMoneyStroked,
+  IconDescend,
+  IconHelpCircle,
 } from '@douyinfe/semi-icons';
 import { Link } from 'react-router-dom';
 import NoticeModal from '../../components/layout/NoticeModal';
@@ -100,8 +105,8 @@ const SUBSCRIPTION_TIERS = [
   },
 ];
 
-// 文本模型对比（Pro 档折后价）
-const TEXT_MODEL_COMPARISON = [
+// 订阅级文本模型对比（Pro 档折后价，仅限可订阅套利的模型）
+const SUBSCRIPTION_MODEL_COMPARISON = [
   {
     model: 'GPT-5.4',
     official: '$2.50 / 1M',
@@ -115,29 +120,93 @@ const TEXT_MODEL_COMPARISON = [
     save: '-89%',
   },
   {
-    model: 'Claude Sonnet 4',
-    official: '$3.00 / 1M',
-    galapi: '$0.33 / 1M',
-    save: '-89%',
-  },
-  {
-    model: 'DeepSeek V3',
-    official: '$0.28 / 1M',
-    galapi: '$0.03 / 1M',
-    save: '-89%',
-  },
-  {
     model: 'GPT-5.3-codex',
     official: '$1.75 / 1M',
     galapi: '$0.19 / 1M',
     save: '-89%',
   },
   {
-    model: 'MiniMax M2.7',
-    official: '¥2.1 / 1M',
-    galapi: '¥0.23 / 1M',
+    model: 'Claude Sonnet 4',
+    official: '$3.00 / 1M',
+    galapi: '$0.33 / 1M',
     save: '-89%',
   },
+  {
+    model: 'Claude Opus 4',
+    official: '$15.00 / 1M',
+    galapi: '$1.65 / 1M',
+    save: '-89%',
+  },
+];
+
+// 直连国内 API 的模型 (按官方价)
+const DIRECT_MODEL_COMPARISON = [
+  {
+    model: 'DeepSeek V3',
+    official: '$0.28 / 1M',
+    galapi: '$0.28 / 1M',
+    save: '官方价',
+  },
+  {
+    model: 'Qwen3-Max',
+    official: '¥2.4 / 1M',
+    galapi: '¥2.4 / 1M',
+    save: '官方价',
+  },
+  {
+    model: 'MiniMax M2.7',
+    official: '¥2.1 / 1M',
+    galapi: '¥2.1 / 1M',
+    save: '官方价',
+  },
+  {
+    model: 'GLM-4',
+    official: '¥0.5 / 1M',
+    galapi: '¥0.5 / 1M',
+    save: '官方价',
+  },
+];
+
+// 5 核心竞争力
+const CORE_FEATURES = [
+  {
+    icon: '🛡️',
+    color: '#3b82f6',
+    title: '稳定',
+    desc: '多通道与智能切换机制，保障高峰期也可持续调用，业务不掉线',
+  },
+  {
+    icon: '⚡',
+    color: '#f59e0b',
+    title: '极速',
+    desc: '智能路由最优模型，缩短等待时间，输出更快，让创作和开发不被响应速度拖慢',
+  },
+  {
+    icon: '💰',
+    color: '#10b981',
+    title: '节省',
+    desc: '自研优化技术，文本生成成本最高可节省 60% Token，高频场景下效果尤为显著',
+  },
+  {
+    icon: '📉',
+    color: '#06b6d4',
+    title: '价格优势',
+    desc: '同等能力下更具性价比，无封号风险，按量计费，降低长期使用门槛',
+  },
+  {
+    icon: '🎧',
+    color: '#ec4899',
+    title: '服务保障',
+    desc: '完善文档、快速响应支持，7×24 专属客服，接入与上线更安心',
+  },
+];
+
+// 首页数据亮点
+const HERO_STATS = [
+  { value: '50+', label: '支持模型' },
+  { value: '2000+', label: 'C 端用户' },
+  { value: '300+', label: '企业客户' },
+  { value: '99.97%', label: 'API 可用性' },
 ];
 
 // 视频模型价格（与官方同价/微加）
@@ -247,28 +316,27 @@ const Home = () => {
       />
       {homePageContentLoaded && homePageContent === '' ? (
         <div className='w-full overflow-x-hidden'>
-          {/* ======================== Hero Section ======================== */}
-          <section className='w-full relative overflow-hidden py-20 md:py-28 lg:py-32 mt-10'>
+          {/* ======================== Hero Section (compact) ======================== */}
+          <section className='w-full relative overflow-hidden py-10 md:py-14 lg:py-16 mt-4'>
             <div className='blur-ball blur-ball-indigo' />
             <div className='blur-ball blur-ball-teal' />
 
             <div className='max-w-5xl mx-auto px-6 text-center relative z-10'>
-              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight'>
-                Galapi
-                <br />
+              <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight'>
+                Galapi{' '}
                 <span className='shine-text'>AI 聚合网关</span>
               </h1>
 
-              <p className='text-lg md:text-xl text-semi-color-text-1 mb-4 max-w-3xl mx-auto'>
+              <p className='text-base md:text-lg text-semi-color-text-1 mb-2 max-w-3xl mx-auto'>
                 文本 API 低至官方 1/10 · 视频 API 官方直连毫秒响应
               </p>
 
-              <p className='text-base text-semi-color-text-2 mb-10 max-w-2xl mx-auto'>
-                一个接口，集成 GPT / Claude / Gemini / Seedance / Kling 等 30+ 主流 AI 模型
+              <p className='text-sm text-semi-color-text-2 mb-6 max-w-2xl mx-auto'>
+                一个接口，集成 GPT / Claude / Gemini / Seedance / Kling 等 50+ 主流 AI 模型
               </p>
 
               {/* BASE URL */}
-              <div className='max-w-xl mx-auto mb-8'>
+              <div className='max-w-xl mx-auto mb-5'>
                 <Input
                   readonly
                   value={serverAddress}
@@ -286,7 +354,7 @@ const Home = () => {
               </div>
 
               {/* CTA buttons */}
-              <div className='flex flex-row gap-4 justify-center items-center flex-wrap'>
+              <div className='flex flex-row gap-4 justify-center items-center flex-wrap mb-8'>
                 <Link to='/console'>
                   <Button
                     theme='solid'
@@ -306,6 +374,71 @@ const Home = () => {
                     查看定价
                   </Button>
                 </Link>
+              </div>
+
+              {/* Hero Stats - 4 numbers */}
+              <div className='grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-10'>
+                {HERO_STATS.map((stat, idx) => (
+                  <div
+                    key={idx}
+                    className='rounded-2xl py-5 px-4 border border-semi-color-border'
+                    style={{
+                      backgroundColor: 'var(--semi-color-bg-0)',
+                    }}
+                  >
+                    <div className='text-2xl md:text-3xl font-bold text-semi-color-primary mb-1'>
+                      {stat.value}
+                    </div>
+                    <div className='text-sm text-semi-color-text-2'>
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ======================== Why Choose Galapi (5 features) ======================== */}
+          <section className='w-full py-16 md:py-20 border-t border-semi-color-border'>
+            <div className='max-w-6xl mx-auto px-6'>
+              <div className='text-center mb-12'>
+                <Tag color='blue' size='large' className='mb-4'>
+                  为什么选择 Galapi
+                </Tag>
+                <h2 className='text-3xl md:text-4xl font-bold mb-3'>
+                  为什么开发者和创作者都选择 Galapi
+                </h2>
+                <p className='text-semi-color-text-1 text-lg'>
+                  五大核心竞争力，让你的 AI 工作流更稳、更快、更省
+                </p>
+              </div>
+
+              <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5'>
+                {CORE_FEATURES.map((feat, idx) => (
+                  <div
+                    key={idx}
+                    className='flex flex-col p-6 rounded-2xl border border-semi-color-border transition-all hover:shadow-md hover:border-semi-color-primary'
+                    style={{ backgroundColor: 'var(--semi-color-bg-0)' }}
+                  >
+                    <div
+                      className='w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4'
+                      style={{
+                        backgroundColor: `${feat.color}20`,
+                      }}
+                    >
+                      {feat.icon}
+                    </div>
+                    <Title heading={5} className='!mb-3'>
+                      {feat.title}
+                    </Title>
+                    <Text
+                      type='tertiary'
+                      className='text-sm leading-relaxed'
+                    >
+                      {feat.desc}
+                    </Text>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
@@ -430,11 +563,13 @@ const Home = () => {
                 ))}
               </div>
 
-              {/* 文本模型对比表 */}
+              {/* 订阅级模型对比表 (89% off) */}
               <div className='mt-16'>
                 <div className='text-center mb-8'>
-                  <Title heading={3}>文本模型单价对比</Title>
-                  <Text type='tertiary'>以专业生产版 (Pro) 档位为例</Text>
+                  <Title heading={3}>订阅级模型 · 省 89%</Title>
+                  <Text type='tertiary'>
+                    订阅制套餐下的 OpenAI / Anthropic 模型（以 Pro 档为例）
+                  </Text>
                 </div>
 
                 <div className='max-w-3xl mx-auto overflow-x-auto rounded-xl border border-semi-color-border'>
@@ -452,7 +587,7 @@ const Home = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {TEXT_MODEL_COMPARISON.map((row, idx) => (
+                      {SUBSCRIPTION_MODEL_COMPARISON.map((row, idx) => (
                         <tr
                           key={idx}
                           className='border-t border-semi-color-border'
@@ -466,6 +601,54 @@ const Home = () => {
                           </td>
                           <td className='p-4 text-right'>
                             <Tag color='green' size='small'>
+                              {row.save}
+                            </Tag>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* 直连国内 API 模型 */}
+              <div className='mt-12'>
+                <div className='text-center mb-8'>
+                  <Title heading={3}>直连模型 · 官方价</Title>
+                  <Text type='tertiary'>
+                    DeepSeek / Qwen / MiniMax 等，直连官方 API，合规稳定
+                  </Text>
+                </div>
+
+                <div className='max-w-3xl mx-auto overflow-x-auto rounded-xl border border-semi-color-border'>
+                  <table className='w-full'>
+                    <thead>
+                      <tr
+                        style={{
+                          backgroundColor: 'var(--semi-color-fill-0)',
+                        }}
+                      >
+                        <th className='text-left p-4 font-semibold'>模型</th>
+                        <th className='text-right p-4 font-semibold'>官方价</th>
+                        <th className='text-right p-4 font-semibold'>Galapi 价</th>
+                        <th className='text-right p-4 font-semibold'>说明</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {DIRECT_MODEL_COMPARISON.map((row, idx) => (
+                        <tr
+                          key={idx}
+                          className='border-t border-semi-color-border'
+                        >
+                          <td className='p-4 font-medium'>{row.model}</td>
+                          <td className='p-4 text-right text-semi-color-text-2'>
+                            {row.official}
+                          </td>
+                          <td className='p-4 text-right font-semibold'>
+                            {row.galapi}
+                          </td>
+                          <td className='p-4 text-right'>
+                            <Tag color='blue' size='small'>
                               {row.save}
                             </Tag>
                           </td>
@@ -586,32 +769,6 @@ const Home = () => {
                       可继续调用，下月自动重置
                     </span>
                   </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* ======================== Stats ======================== */}
-          <section className='w-full py-12 md:py-16 border-t border-semi-color-border'>
-            <div className='max-w-4xl mx-auto px-6'>
-              <div className='grid grid-cols-3 gap-8 text-center'>
-                <div>
-                  <div className='text-4xl md:text-5xl font-bold text-semi-color-primary mb-2'>
-                    30+
-                  </div>
-                  <div className='text-semi-color-text-2'>支持的模型</div>
-                </div>
-                <div>
-                  <div className='text-4xl md:text-5xl font-bold text-semi-color-primary mb-2'>
-                    89%
-                  </div>
-                  <div className='text-semi-color-text-2'>文本 API 省</div>
-                </div>
-                <div>
-                  <div className='text-4xl md:text-5xl font-bold text-semi-color-primary mb-2'>
-                    OpenAI
-                  </div>
-                  <div className='text-semi-color-text-2'>SDK 兼容，零改造</div>
                 </div>
               </div>
             </div>
