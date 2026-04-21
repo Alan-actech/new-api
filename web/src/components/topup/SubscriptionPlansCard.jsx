@@ -557,9 +557,7 @@ const SubscriptionPlansCard = ({
                     className={`!rounded-xl transition-all hover:shadow-lg w-full h-full ${
                       isHighlighted
                         ? 'ring-4 ring-blue-500 shadow-2xl scale-[1.02]'
-                        : isPopular
-                          ? 'ring-2 ring-purple-500'
-                          : ''
+                        : ''
                     }`}
                     bodyStyle={{ padding: 0 }}
                   >
