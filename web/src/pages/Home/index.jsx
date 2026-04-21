@@ -60,6 +60,7 @@ const { Text, Title } = Typography;
 const SUBSCRIPTION_TIERS = [
   {
     id: 'trial',
+    planId: 1,
     name: '新人特惠',
     price: 9.9,
     credit: 19.9,
@@ -71,6 +72,7 @@ const SUBSCRIPTION_TIERS = [
   },
   {
     id: 'dev',
+    planId: 2,
     name: '开发者版',
     price: 299,
     credit: 360,
@@ -82,6 +84,7 @@ const SUBSCRIPTION_TIERS = [
   },
   {
     id: 'pro',
+    planId: 3,
     name: '专业生产版',
     price: 499,
     credit: 650,
@@ -94,6 +97,7 @@ const SUBSCRIPTION_TIERS = [
   },
   {
     id: 'team',
+    planId: 4,
     name: '旗舰团队版',
     price: 999,
     credit: 1400,
@@ -476,7 +480,7 @@ const Home = () => {
                     </ul>
 
                     {/* CTA */}
-                    <Link to='/console/topup'>
+                    <Link to={`/console/topup?plan=${tier.planId}`}>
                       <Button
                         theme={tier.highlight ? 'solid' : 'light'}
                         type='primary'

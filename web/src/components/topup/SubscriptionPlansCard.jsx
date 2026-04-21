@@ -17,7 +17,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   Badge,
   Button,
@@ -89,8 +90,39 @@ const SubscriptionPlansCard = ({
   const [paying, setPaying] = useState(false);
   const [selectedEpayMethod, setSelectedEpayMethod] = useState('');
   const [refreshing, setRefreshing] = useState(false);
+  const [highlightedPlanId, setHighlightedPlanId] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const epayMethods = useMemo(() => getEpayMethods(payMethods), [payMethods]);
+
+  // 首页点击"立即订阅" → 带 ?plan=<id> 过来，自动滚到该卡片并高亮
+  useEffect(() => {
+    const planParam = searchParams.get('plan');
+    if (!planParam || !plans || plans.length === 0) return;
+    const targetId = parseInt(planParam, 10);
+    const target = plans.find((p) => p?.plan?.id === targetId);
+    if (!target) return;
+
+    // 延后一帧等 DOM 渲染完再滚
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`plan-card-${targetId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    setHighlightedPlanId(targetId);
+    // 2.5 秒后移除高亮
+    const timer = setTimeout(() => setHighlightedPlanId(null), 2500);
+
+    // 清掉 URL 参数 (但不触发重渲染)
+    const next = new URLSearchParams(searchParams);
+    next.delete('plan');
+    setSearchParams(next, { replace: true });
+
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [plans]);
 
   const openBuy = (p) => {
     setSelectedPlan(p);
@@ -517,11 +549,17 @@ const SubscriptionPlansCard = ({
                   upgradeLabel ? { label: upgradeLabel } : null,
                 ].filter(Boolean);
 
+                const isHighlighted = highlightedPlanId === plan?.id;
                 return (
                   <Card
                     key={plan?.id}
+                    id={`plan-card-${plan?.id}`}
                     className={`!rounded-xl transition-all hover:shadow-lg w-full h-full ${
-                      isPopular ? 'ring-2 ring-purple-500' : ''
+                      isHighlighted
+                        ? 'ring-4 ring-blue-500 shadow-2xl scale-[1.02]'
+                        : isPopular
+                          ? 'ring-2 ring-purple-500'
+                          : ''
                     }`}
                     bodyStyle={{ padding: 0 }}
                   >
