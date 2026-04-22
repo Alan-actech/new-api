@@ -10,6 +10,8 @@ build
 logs
 web/dist
 .env
+*.local.txt
+credentials*.txt
 one-api
 new-api
 /__debug_bin*
