@@ -469,7 +469,7 @@ const RegisterForm = () => {
                     onClick={handleOIDCClick}
                     loading={oidcLoading}
                   >
-                    <span className='ml-3'>{t('使用 OIDC 继续')}</span>
+                    <span className='ml-3'>{t('使用 Google 登录')}</span>
                   </Button>
                 )}
 
@@ -576,8 +576,9 @@ const RegisterForm = () => {
                 <Form.Input
                   field='username'
                   label={t('用户名')}
-                  placeholder={t('请输入用户名')}
+                  placeholder={t('1-20 字符')}
                   name='username'
+                  maxLength={20}
                   onChange={(value) => handleChange('username', value)}
                   prefix={<IconUser />}
                 />

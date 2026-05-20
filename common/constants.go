@@ -104,6 +104,15 @@ var TelegramBotName = ""
 var QuotaForNewUser = 0
 var QuotaForInviter = 0
 var QuotaForInvitee = 0
+
+// InternalEmailDomain — users registering with an email on this domain are
+// treated as internal staff and receive InternalUserQuota on first sign-up,
+// overriding the global QuotaForNewUser. Case-insensitive match.
+const InternalEmailDomain = "ac-technology.com"
+
+// InternalUserQuota — $500 expressed in quota units (QuotaPerUnit = 500_000 → $1).
+var InternalUserQuota = 500 * int(QuotaPerUnit)
+
 var ChannelDisableThreshold = 5.0
 var AutomaticDisableChannelEnabled = false
 var AutomaticEnableChannelEnabled = false

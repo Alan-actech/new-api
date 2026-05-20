@@ -443,7 +443,7 @@
     "使用 GitHub 继续": "Tiếp tục với GitHub",
     "使用 JSON 对象格式，格式为：{\"组名\": [最多请求次数, 最多请求完成次数]}": "Sử dụng định dạng đối tượng JSON, định dạng: {\"group_name\": [max_requests, max_completions]}",
     "使用 LinuxDO 继续": "Tiếp tục với LinuxDO",
-    "使用 OIDC 继续": "Tiếp tục với OIDC",
+    "使用 Google 登录": "Tiếp tục với Google",
     "使用 Passkey 实现免密且更安全的登录体验": "Sử dụng Passkey để trải nghiệm đăng nhập không cần mật khẩu và an toàn hơn",
     "使用 Passkey 登录": "Đăng nhập bằng Passkey",
     "使用 Passkey 验证": "Xác minh bằng Passkey",

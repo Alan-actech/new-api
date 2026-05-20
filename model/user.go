@@ -384,7 +384,11 @@ func (user *User) Insert(inviterId int) error {
 			return err
 		}
 	}
-	user.Quota = common.QuotaForNewUser
+	if common.IsInternalEmail(user.Email) {
+		user.Quota = common.InternalUserQuota
+	} else {
+		user.Quota = common.QuotaForNewUser
+	}
 	//user.SetAccessToken(common.GetUUID())
 	user.AffCode = common.GetRandomString(4)
 
@@ -415,7 +419,9 @@ func (user *User) Insert(inviterId int) error {
 		}
 	}
 
-	if common.QuotaForNewUser > 0 {
+	if common.IsInternalEmail(user.Email) {
+		RecordLog(user.Id, LogTypeSystem, fmt.Sprintf("内部员工注册赠送 %s", logger.LogQuota(common.InternalUserQuota)))
+	} else if common.QuotaForNewUser > 0 {
 		RecordLog(user.Id, LogTypeSystem, fmt.Sprintf("新用户注册赠送 %s", logger.LogQuota(common.QuotaForNewUser)))
 	}
 	if inviterId != 0 {
@@ -443,7 +449,11 @@ func (user *User) InsertWithTx(tx *gorm.DB, inviterId int) error {
 			return err
 		}
 	}
-	user.Quota = common.QuotaForNewUser
+	if common.IsInternalEmail(user.Email) {
+		user.Quota = common.InternalUserQuota
+	} else {
+		user.Quota = common.QuotaForNewUser
+	}
 	user.AffCode = common.GetRandomString(4)
 
 	// 初始化用户设置
@@ -476,7 +486,9 @@ func (user *User) FinalizeOAuthUserCreation(inviterId int) {
 		}
 	}
 
-	if common.QuotaForNewUser > 0 {
+	if common.IsInternalEmail(user.Email) {
+		RecordLog(user.Id, LogTypeSystem, fmt.Sprintf("内部员工注册赠送 %s", logger.LogQuota(common.InternalUserQuota)))
+	} else if common.QuotaForNewUser > 0 {
 		RecordLog(user.Id, LogTypeSystem, fmt.Sprintf("新用户注册赠送 %s", logger.LogQuota(common.QuotaForNewUser)))
 	}
 	if inviterId != 0 {

@@ -578,7 +578,7 @@ const LoginForm = () => {
                     onClick={handleOIDCClick}
                     loading={oidcLoading}
                   >
-                    <span className='ml-3'>{t('使用 OIDC 继续')}</span>
+                    <span className='ml-3'>{t('使用 Google 登录')}</span>
                   </Button>
                 )}
 
