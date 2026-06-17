@@ -489,7 +489,7 @@
     "使用 GitHub 继续": "Continuer avec GitHub",
     "使用 JSON 对象格式，格式为：{\"组名\": [最多请求次数, 最多请求完成次数]}": "Utiliser le format d'objet JSON, au format : {\"nom du groupe\": [nombre maximal de requêtes, nombre maximal d'achèvements de requêtes]}",
     "使用 LinuxDO 继续": "Continuer avec LinuxDO",
-    "使用 OIDC 继续": "Continuer avec OIDC",
+    "使用 Google 登录": "Continuer avec Google",
     "使用 Passkey 实现免密且更安全的登录体验": "Utilisez Passkey pour une expérience de connexion sans mot de passe et plus sécurisée.",
     "使用 Passkey 登录": "Se connecter avec Passkey",
     "使用 Passkey 验证": "Vérifier avec Passkey",

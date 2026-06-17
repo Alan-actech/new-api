@@ -1624,7 +1624,7 @@ export function renderTaskBillingProcess(other, content) {
 }
 
 export function renderModelPrice(opts) {
-  const {
+  let {
     prompt_tokens: inputTokens = 0,
     completion_tokens: completionTokens = 0,
     model_ratio: modelRatio = 0,
@@ -2077,7 +2077,7 @@ export function renderModelPrice(opts) {
 }
 
 export function renderLogContent(opts) {
-  const {
+  let {
     model_ratio: modelRatio,
     completion_ratio: completionRatio,
     model_price: modelPrice = -1,
@@ -2444,7 +2444,7 @@ export function renderModelPriceSimple(opts) {
 }
 
 export function renderAudioModelPrice(opts) {
-  const {
+  let {
     prompt_tokens: inputTokens = 0,
     completion_tokens: completionTokens = 0,
     model_ratio: modelRatio = 0,
@@ -2726,7 +2726,7 @@ export function renderQuotaWithPrompt(quota, digits) {
 }
 
 export function renderClaudeModelPrice(opts) {
-  const {
+  let {
     prompt_tokens: inputTokens = 0,
     completion_tokens: completionTokens = 0,
     model_ratio: modelRatio = 0,
@@ -3129,7 +3129,7 @@ export function renderClaudeModelPrice(opts) {
 }
 
 export function renderClaudeLogContent(opts) {
-  const {
+  let {
     model_ratio: modelRatio,
     completion_ratio: completionRatio,
     model_price: modelPrice = -1,

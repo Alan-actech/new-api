@@ -127,6 +127,16 @@ func NormalizeBillingPreference(pref string) string {
 	}
 }
 
+// IsInternalEmail reports whether the email belongs to InternalEmailDomain.
+// Match is case-insensitive on the domain part.
+func IsInternalEmail(email string) bool {
+	atIndex := strings.LastIndex(email, "@")
+	if atIndex == -1 || atIndex == len(email)-1 {
+		return false
+	}
+	return strings.EqualFold(email[atIndex+1:], InternalEmailDomain)
+}
+
 // MaskEmail masks a user email to prevent PII leakage in logs
 // Returns "***masked***" if email is empty, otherwise shows only the domain part
 func MaskEmail(email string) string {

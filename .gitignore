@@ -8,11 +8,13 @@ upload
 build
 *.db-journal
 logs
+web/dist
+web/node_modules
 web/default/dist
 web/classic/dist
-web/node_modules
-web/dist
 .env
+*.local.txt
+credentials*.txt
 one-api
 new-api
 /__debug_bin*
@@ -22,9 +24,9 @@ tiktoken_cache
 .gocache
 .gomodcache/
 .cache
+web/bun.lock
 plans
 .claude
-.cursor
 
 electron/node_modules
 electron/dist
@@ -35,4 +37,3 @@ data/
 .test
 token_estimator_test.go
 skills-lock.json
-.playwright-mcp
