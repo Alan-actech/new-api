@@ -137,6 +137,12 @@ func InitOptionMap() {
 	common.OptionMap["ModelRequestRateLimitDurationMinutes"] = strconv.Itoa(setting.ModelRequestRateLimitDurationMinutes)
 	common.OptionMap["ModelRequestRateLimitSuccessCount"] = strconv.Itoa(setting.ModelRequestRateLimitSuccessCount)
 	common.OptionMap["ModelRequestRateLimitGroup"] = setting.ModelRequestRateLimitGroup2JSONString()
+	common.OptionMap["ModelConcurrencyLimitGroup"] = setting.ModelConcurrencyLimitGroup2JSONString()
+	common.OptionMap["ModelConcurrencyLimitImageGroup"] = setting.ModelConcurrencyLimitImageGroup2JSONString()
+	common.OptionMap["ModelConcurrencyLimitUserOverride"] = setting.ModelConcurrencyLimitUserOverride2JSONString()
+	common.OptionMap["ModelConcurrencyLimitUserQueueOverride"] = setting.ModelConcurrencyLimitUserQueueOverride2JSONString()
+	common.OptionMap["ModelConcurrencyLimitExemptUserIds"] = setting.ModelConcurrencyLimitExemptUserIds2JSONString()
+	common.OptionMap["ModelConcurrencyLimitQueueMaxWaitSeconds"] = strconv.Itoa(setting.ModelConcurrencyLimitQueueMaxWaitSeconds)
 	common.OptionMap["ModelRatio"] = ratio_setting.ModelRatio2JSONString()
 	common.OptionMap["ModelPrice"] = ratio_setting.ModelPrice2JSONString()
 	common.OptionMap["CacheRatio"] = ratio_setting.CacheRatio2JSONString()
@@ -165,6 +171,7 @@ func InitOptionMap() {
 	common.OptionMap["DemoSiteEnabled"] = strconv.FormatBool(operation_setting.DemoSiteEnabled)
 	common.OptionMap["SelfUseModeEnabled"] = strconv.FormatBool(operation_setting.SelfUseModeEnabled)
 	common.OptionMap["ModelRequestRateLimitEnabled"] = strconv.FormatBool(setting.ModelRequestRateLimitEnabled)
+	common.OptionMap["ModelConcurrencyLimitEnabled"] = strconv.FormatBool(setting.ModelConcurrencyLimitEnabled)
 	common.OptionMap["CheckSensitiveOnPromptEnabled"] = strconv.FormatBool(setting.CheckSensitiveOnPromptEnabled)
 	common.OptionMap["StopOnSensitiveEnabled"] = strconv.FormatBool(setting.StopOnSensitiveEnabled)
 	common.OptionMap["SensitiveWords"] = setting.SensitiveWordsToString()
@@ -346,6 +353,8 @@ func updateOptionMap(key string, value string) (err error) {
 			setting.CheckSensitiveOnPromptEnabled = boolValue
 		case "ModelRequestRateLimitEnabled":
 			setting.ModelRequestRateLimitEnabled = boolValue
+		case "ModelConcurrencyLimitEnabled":
+			setting.ModelConcurrencyLimitEnabled = boolValue
 		case "StopOnSensitiveEnabled":
 			setting.StopOnSensitiveEnabled = boolValue
 		case "SMTPSSLEnabled":
@@ -512,6 +521,18 @@ func updateOptionMap(key string, value string) (err error) {
 		setting.ModelRequestRateLimitSuccessCount, _ = strconv.Atoi(value)
 	case "ModelRequestRateLimitGroup":
 		err = setting.UpdateModelRequestRateLimitGroupByJSONString(value)
+	case "ModelConcurrencyLimitGroup":
+		err = setting.UpdateModelConcurrencyLimitGroupByJSONString(value)
+	case "ModelConcurrencyLimitImageGroup":
+		err = setting.UpdateModelConcurrencyLimitImageGroupByJSONString(value)
+	case "ModelConcurrencyLimitUserOverride":
+		err = setting.UpdateModelConcurrencyLimitUserOverrideByJSONString(value)
+	case "ModelConcurrencyLimitUserQueueOverride":
+		err = setting.UpdateModelConcurrencyLimitUserQueueOverrideByJSONString(value)
+	case "ModelConcurrencyLimitExemptUserIds":
+		err = setting.UpdateModelConcurrencyLimitExemptUserIdsByJSONString(value)
+	case "ModelConcurrencyLimitQueueMaxWaitSeconds":
+		setting.ModelConcurrencyLimitQueueMaxWaitSeconds, _ = strconv.Atoi(value)
 	case "RetryTimes":
 		common.RetryTimes, _ = strconv.Atoi(value)
 	case "DataExportInterval":
