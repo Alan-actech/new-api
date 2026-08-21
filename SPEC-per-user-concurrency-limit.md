@@ -1,5 +1,7 @@
 # SPEC — 每用户并发限制（per-user concurrency limit）
 
+> **✅ 已部署上线，2026-08-20**：代码 build 进 `new-api:concurrency-limit-20260818` 镜像并切换为生产 `:custom`（旧镜像备份为 `new-api:rollback-20260820`，一键回滚见下方"回滚"节）；"部署后配置值"一节的 6 个 option 全部通过 admin API 设置并核对过；`ModelConcurrencyLimitEnabled=true` 已打开，切换后 2 分钟内 7 个请求全部成功、0 错误。
+
 ## 目标
 在 new-api（`new-api:custom` 本地构建）relay 层增加**每用户「同时在跑请求数」**上限：
 - 每个用户独立计数（不是全组共享）。
